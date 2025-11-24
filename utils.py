@@ -17,7 +17,8 @@
 
 import numpy
 import tensorflow as tf
-from tensorflow import logging
+# from tensorflow import logging
+logging = tf.compat.v1.logging
 
 
 def Dequantize(feat_vector, max_quantized_value=2, min_quantized_value=-2):
