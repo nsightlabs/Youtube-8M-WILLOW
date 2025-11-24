@@ -97,7 +97,7 @@ if __name__ == "__main__":
   # Other flags.
   flags.DEFINE_integer("num_readers", 8,
                        "How many threads to use for reading input files.")
-  flags.DEFINE_string("optimizer", "Adam",
+  flags.DEFINE_string("optimizer", "AdamOptimizer",
                       "What optimizer class to use.")
   flags.DEFINE_float("clip_gradient_norm", 1.0, "Norm to clip gradients to.")
   flags.DEFINE_bool(
@@ -512,7 +512,8 @@ class Trainer(object):
   def build_model(self, model, reader):
     """Find the model and build the graph."""
     label_loss_fn = find_class_by_name(FLAGS.label_loss, [losses])()
-    optimizer_class = find_class_by_name(FLAGS.optimizer, [tf.keras.optimizers])
+    # optimizer_class = find_class_by_name(FLAGS.optimizer, [tf.keras.optimizers])
+    optimizer_class = find_class_by_name(FLAGS.optimizer, [tf.compat.v1.train])
   
     build_graph(reader=reader,
                  model=model,
