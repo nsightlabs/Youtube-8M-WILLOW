@@ -24,11 +24,16 @@ import frame_level_models
 import video_level_models
 import readers
 import tensorflow as tf
-import tensorflow.contrib.slim as slim
-from tensorflow import app
-from tensorflow import flags
-from tensorflow import gfile
-from tensorflow import logging
+# import tensorflow.contrib.slim as slim
+import tf_slim as slim
+# from tensorflow import app
+app = tf.compat.v1.app
+# from tensorflow import flags
+flags = tf.compat.v1.flags
+# from tensorflow import gfile
+gfile = tf.compat.v1.gfile
+# from tensorflow import logging
+logging = tf.compat.v1.logging
 import utils
 
 FLAGS = flags.FLAGS
