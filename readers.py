@@ -211,7 +211,7 @@ class YT8MFrameFeatureReader(BaseReader):
     Returns:
       A tuple of video indexes, video features, labels, and padding data.
     """
-    reader = tf.io.TFRecordReader()
+    reader = tf.compat.v1.TFRecordReader()
     _, serialized_example = reader.read(filename_queue)
 
     return self.prepare_serialized_examples(serialized_example,
