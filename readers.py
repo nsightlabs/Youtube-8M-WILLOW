@@ -228,11 +228,11 @@ class YT8MFrameFeatureReader(BaseReader):
     #     })
     contexts, features = tf.compat.v1.parse_single_sequence_example(
         serialized_example,
-        context_features={"video_id": tf.FixedLenFeature(
+        context_features={"video_id": tf.compat.v1.FixedLenFeature(
             [], tf.string),
-                          "labels": tf.VarLenFeature(tf.int64)},
+                          "labels": tf.compat.v1.VarLenFeature(tf.int64)},
         sequence_features={
-            feature_name : tf.FixedLenSequenceFeature([], dtype=tf.string)
+            feature_name : tf.compat.v1.FixedLenSequenceFeature([], dtype=tf.string)
             for feature_name in self.feature_names
         })
 
