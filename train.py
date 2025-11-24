@@ -610,7 +610,8 @@ def main(unused_argv):
   task = type("TaskSpec", (object,), task_data)
 
   # Logging the version.
-  logging.set_verbosity(tf.logging.INFO)
+  # logging.set_verbosity(tf.logging.INFO)
+  logging.set_verbosity(logging.INFO)
   logging.info("%s: Tensorflow version: %s.",
                task_as_string(task), tf.__version__)
 
