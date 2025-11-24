@@ -163,13 +163,13 @@ def get_input_data_tensors(reader,
       raise IOError("Unable to find training files. data_pattern='" +
                     data_pattern + "'.")
     logging.info("Number of training files: %s.", str(len(files)))
-    filename_queue = tf.train.string_input_producer(
+    filename_queue = tf.compat.v1.train.string_input_producer(
         files, num_epochs=num_epochs, shuffle=True)
     training_data = [
         reader.prepare_reader(filename_queue) for _ in range(num_readers)
     ]
 
-    return tf.train.shuffle_batch_join(
+    return tf.compat.v1.train.shuffle_batch_join(
         training_data,
         batch_size=batch_size,
         capacity=FLAGS.batch_size * 5,
