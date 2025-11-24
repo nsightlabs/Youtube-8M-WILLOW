@@ -19,8 +19,10 @@ import models
 import tensorflow as tf
 import utils
 
-from tensorflow import flags
-import tensorflow.contrib.slim as slim
+# from tensorflow import flags
+flags = tf.compat.v1.flags
+# import tensorflow.contrib.slim as slim
+import tf_slim as slim
 
 FLAGS = flags.FLAGS
 flags.DEFINE_integer(
