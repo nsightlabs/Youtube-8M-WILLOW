@@ -194,8 +194,11 @@ class NetVLAD():
     def forward(self,reshaped_input):
 
 
+        # cluster_weights = tf.compat.v1.get_variable("cluster_weights",
+        #       [self.feature_size, self.cluster_size],
+        #       initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(self.feature_size)))
         cluster_weights = tf.compat.v1.get_variable("cluster_weights",
-              [self.feature_size, self.cluster_size],
+              [int(self.feature_size), int(self.cluster_size)],
               initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(self.feature_size)))
        
         tf.summary.histogram("cluster_weights", cluster_weights)
