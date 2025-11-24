@@ -23,7 +23,7 @@ from tensorflow.python.saved_model import signature_def_utils
 from tensorflow.python.saved_model import tag_constants
 from tensorflow.python.saved_model import utils as saved_model_utils
 
-_TOP_PREDICTIONS_IN_OUTPUT = 20
+_TOP_PREDICTIONS_IN_OUTPUT = 4
 
 class ModelExporter(object):
 
