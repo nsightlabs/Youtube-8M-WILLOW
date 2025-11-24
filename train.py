@@ -511,10 +511,7 @@ class Trainer(object):
 
   def build_model(self, model, reader):
     """Find the model and build the graph."""
-    logging.info(f"label_loss: {FLAGS.label_loss}\nlosses:{[losses]}")
-    logging.info(f"optimizer: {FLAGS.optimizer}\nlosses:{[tf.train]}")
     label_loss_fn = find_class_by_name(FLAGS.label_loss, [losses])()
-    logging.info(f"label_loss_fn: {label_loss_fn}\n")
     optimizer_class = find_class_by_name(FLAGS.optimizer, [tf.keras.optimizers])
   
     build_graph(reader=reader,
