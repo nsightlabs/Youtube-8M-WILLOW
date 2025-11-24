@@ -41,8 +41,8 @@ class ModelExporter(object):
     """Exports the model so that it can used for batch predictions."""
 
     with self.graph.as_default():
-      with tf.Session() as session:
-        session.run(tf.global_variables_initializer())
+      with tf.compat.v1.Session() as session:
+        session.run(tf.compat.v1.global_variables_initializer())
         self.saver.restore(session, last_checkpoint)
 
         signature = signature_def_utils.build_signature_def(
