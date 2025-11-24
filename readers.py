@@ -217,7 +217,16 @@ class YT8MFrameFeatureReader(BaseReader):
   def prepare_serialized_examples(self, serialized_example,
       max_quantized_value=2, min_quantized_value=-2):
 
-    contexts, features = tf.parse_single_sequence_example(
+    # contexts, features = tf.parse_single_sequence_example(
+    #     serialized_example,
+    #     context_features={"video_id": tf.FixedLenFeature(
+    #         [], tf.string),
+    #                       "labels": tf.VarLenFeature(tf.int64)},
+    #     sequence_features={
+    #         feature_name : tf.FixedLenSequenceFeature([], dtype=tf.string)
+    #         for feature_name in self.feature_names
+    #     })
+    contexts, features = tf.compat.v1.parse_single_sequence_example(
         serialized_example,
         context_features={"video_id": tf.FixedLenFeature(
             [], tf.string),
