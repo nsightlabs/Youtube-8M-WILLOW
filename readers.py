@@ -17,7 +17,10 @@
 import tensorflow as tf
 import utils
 
-from tensorflow import logging
+# from tensorflow import logging
+
+logging = tf.compat.v1.logging
+
 def resize_axis(tensor, axis, new_size, fill_value=0):
   """Truncates or pads a tensor to new_size on on a given axis.
 
