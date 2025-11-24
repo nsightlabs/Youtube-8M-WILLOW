@@ -57,7 +57,7 @@ class CrossEntropyLoss(BaseLoss):
       alpha = FLAGS.alpha
 
       float_labels = tf.cast(labels, tf.float32)
-      cross_entropy_loss = 2*(alpha*float_labels * tf.log(predictions + epsilon) + (1-alpha)*(
-          1 - float_labels) * tf.log(1 - predictions + epsilon))
+      cross_entropy_loss = 2*(alpha*float_labels * tf.compat.v1.log(predictions + epsilon) + (1-alpha)*(
+          1 - float_labels) * tf.compat.v1.log(1 - predictions + epsilon))
       cross_entropy_loss = tf.negative(cross_entropy_loss)
       return tf.reduce_mean(tf.reduce_sum(cross_entropy_loss, 1))
