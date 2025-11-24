@@ -237,8 +237,12 @@ class YT8MFrameFeatureReader(BaseReader):
         })
 
     # read ground truth labels
+    # labels = (tf.cast(
+    #     tf.sparse_to_dense(contexts["labels"].values, (self.num_classes,), 1,
+    #         validate_indices=False),
+    #     tf.bool))
     labels = (tf.cast(
-        tf.sparse_to_dense(contexts["labels"].values, (self.num_classes,), 1,
+        tf.compat.v1.sparse_to_dense(contexts["labels"].values, (self.num_classes,), 1,
             validate_indices=False),
         tf.bool))
 
