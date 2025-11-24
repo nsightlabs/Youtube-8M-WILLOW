@@ -513,7 +513,7 @@ class Trainer(object):
     """Find the model and build the graph."""
 
     label_loss_fn = find_class_by_name(FLAGS.label_loss, [losses])()
-    optimizer_class = find_class_by_name(FLAGS.optimizer, [tf.compat.v1.train])
+    optimizer_class = find_class_by_name(FLAGS.optimizer, [tf.keras.optimizers])
   
     build_graph(reader=reader,
                  model=model,
