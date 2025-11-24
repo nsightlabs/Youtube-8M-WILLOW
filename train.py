@@ -224,7 +224,7 @@ def build_graph(reader,
   
   global_step = tf.Variable(0, trainable=False, name="global_step")
   
-  learning_rate = tf.train.exponential_decay(
+  learning_rate = tf.compat.v1.train.exponential_decay(
       base_learning_rate,
       global_step * batch_size,
       learning_rate_decay_examples,
