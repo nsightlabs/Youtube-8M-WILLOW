@@ -20,10 +20,14 @@ import time
 import numpy
 import tensorflow as tf
 
-from tensorflow import app
-from tensorflow import flags
-from tensorflow import gfile
-from tensorflow import logging
+# from tensorflow import app
+# from tensorflow import flags
+# from tensorflow import gfile
+# from tensorflow import 
+app = tf.compat.v1.app
+flags = tf.compat.v1.flags
+gfile = tf.compat.v1.gfile
+logging = tf.compat.v1.logging
 
 import eval_util
 import losses
@@ -100,20 +104,20 @@ def get_input_data_tensors(reader, data_pattern, batch_size, num_readers=1):
       raise IOError("Unable to find input files. data_pattern='" +
                     data_pattern + "'")
     logging.info("number of input files: " + str(len(files)))
-    filename_queue = tf.train.string_input_producer(
+    filename_queue = tf.compat.v1.train.string_input_producer(
         files, num_epochs=1, shuffle=False)
     examples_and_labels = [reader.prepare_reader(filename_queue)
                            for _ in range(num_readers)]
 
     video_id_batch, video_batch, unused_labels, num_frames_batch = (
-        tf.train.batch_join(examples_and_labels,
+        tf.compat.v1.train.batch_join(examples_and_labels,
                             batch_size=batch_size,
                             allow_smaller_final_batch = True,
                             enqueue_many=True))
     return video_id_batch, video_batch, num_frames_batch
 
 def inference(reader, train_dir, data_pattern, out_file_location, batch_size, top_k):
-  with tf.Session() as sess, gfile.Open(out_file_location, "w+") as out_file:
+  with tf.compat.v1.Session() as sess, gfile.Open(out_file_location, "w+") as out_file:
     video_id_batch, video_batch, num_frames_batch = get_input_data_tensors(reader, data_pattern, batch_size)
     latest_checkpoint = tf.train.latest_checkpoint(train_dir)
     if latest_checkpoint is None:
@@ -125,28 +129,28 @@ def inference(reader, train_dir, data_pattern, out_file_location, batch_size, to
         meta_graph_location = FLAGS.train_dir + "/model.ckpt-" + str(FLAGS.check_point) + ".meta"
         latest_checkpoint = FLAGS.train_dir + "/model.ckpt-" + str(FLAGS.check_point)
       logging.info("loading meta-graph: " + meta_graph_location)
-    saver = tf.train.import_meta_graph(meta_graph_location, clear_devices=True)
+    saver = tf.compat.v1.train.import_meta_graph(meta_graph_location, clear_devices=True)
     logging.info("restoring variables from " + latest_checkpoint)
     saver.restore(sess, latest_checkpoint)
-    input_tensor = tf.get_collection("input_batch_raw")[0]
-    num_frames_tensor = tf.get_collection("num_frames")[0]
-    predictions_tensor = tf.get_collection("predictions")[0]
+    input_tensor = tf.compat.v1.get_collection("input_batch_raw")[0]
+    num_frames_tensor = tf.compat.v1.get_collection("num_frames")[0]
+    predictions_tensor = tf.compat.v1.get_collection("predictions")[0]
 
     # Workaround for num_epochs issue.
     def set_up_init_ops(variables):
       init_op_list = []
       for variable in list(variables):
         if "train_input" in variable.name:
-          init_op_list.append(tf.assign(variable, 1))
+          init_op_list.append(tf.compat.v1.assign(variable, 1))
           variables.remove(variable)
-      init_op_list.append(tf.variables_initializer(variables))
+      init_op_list.append(tf.compat.v1.variables_initializer(variables))
       return init_op_list
 
-    sess.run(set_up_init_ops(tf.get_collection_ref(
+    sess.run(set_up_init_ops(tf.compat.v1.get_collection_ref(
         tf.GraphKeys.LOCAL_VARIABLES)))
 
     coord = tf.train.Coordinator()
-    threads = tf.train.start_queue_runners(sess=sess, coord=coord)
+    threads = tf.compat.v1.train.start_queue_runners(sess=sess, coord=coord)
     num_examples_processed = 0
     start_time = time.time()
     out_file.write("VideoId,LabelConfidencePairs\n")
@@ -174,7 +178,7 @@ def inference(reader, train_dir, data_pattern, out_file_location, batch_size, to
 
 
 def main(unused_argv):
-  logging.set_verbosity(tf.logging.INFO)
+  logging.set_verbosity(logging.INFO)
 
   # convert feature_names and feature_sizes to lists of values
   feature_names, feature_sizes = utils.GetListOfFeatureNamesAndSizes(
