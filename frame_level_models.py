@@ -145,7 +145,7 @@ class LightVLAD():
     def forward(self,reshaped_input):
 
 
-        cluster_weights = tf.get_variable("cluster_weights",
+        cluster_weights = tf.compat.v1.get_variable("cluster_weights",
               [self.feature_size, self.cluster_size],
               initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(self.feature_size)))
        
@@ -159,7 +159,7 @@ class LightVLAD():
               is_training=self.is_training,
               scope="cluster_bn")
         else:
-          cluster_biases = tf.get_variable("cluster_biases",
+          cluster_biases = tf.compat.v1.get_variable("cluster_biases",
             [cluster_size],
             initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(self.feature_size)))
           tf.summary.histogram("cluster_biases", cluster_biases)
@@ -194,7 +194,7 @@ class NetVLAD():
     def forward(self,reshaped_input):
 
 
-        cluster_weights = tf.get_variable("cluster_weights",
+        cluster_weights = tf.compat.v1.get_variable("cluster_weights",
               [self.feature_size, self.cluster_size],
               initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(self.feature_size)))
        
@@ -209,7 +209,7 @@ class NetVLAD():
               is_training=self.is_training,
               scope="cluster_bn")
         else:
-          cluster_biases = tf.get_variable("cluster_biases",
+          cluster_biases = tf.compat.v1.get_variable("cluster_biases",
             [cluster_size],
             initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(self.feature_size)))
           tf.summary.histogram("cluster_biases", cluster_biases)
@@ -222,7 +222,7 @@ class NetVLAD():
 
         a_sum = tf.reduce_sum(activation,-2,keep_dims=True)
 
-        cluster_weights2 = tf.get_variable("cluster_weights2",
+        cluster_weights2 = tf.compat.v1.get_variable("cluster_weights2",
             [1,self.feature_size, self.cluster_size],
             initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(self.feature_size)))
         
@@ -255,7 +255,7 @@ class NetVLAGD():
     def forward(self,reshaped_input):
 
 
-        cluster_weights = tf.get_variable("cluster_weights",
+        cluster_weights = tf.compat.v1.get_variable("cluster_weights",
               [self.feature_size, self.cluster_size],
               initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(self.feature_size)))
        
@@ -269,7 +269,7 @@ class NetVLAGD():
               is_training=self.is_training,
               scope="cluster_bn")
         else:
-          cluster_biases = tf.get_variable("cluster_biases",
+          cluster_biases = tf.compat.v1.get_variable("cluster_biases",
             [cluster_size],
             initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(self.feature_size)))
         
@@ -277,7 +277,7 @@ class NetVLAGD():
 
         activation = tf.reshape(activation, [-1, self.max_frames, self.cluster_size])
 
-        gate_weights = tf.get_variable("gate_weights",
+        gate_weights = tf.compat.v1.get_variable("gate_weights",
             [1, self.cluster_size,self.feature_size],
             initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(self.feature_size)))
         
@@ -320,7 +320,7 @@ class GatedDBoF():
         is_training = self.is_training
         max_pool = self.max_pool
 
-        cluster_weights = tf.get_variable("cluster_weights",
+        cluster_weights = tf.compat.v1.get_variable("cluster_weights",
           [feature_size, cluster_size],
           initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(feature_size)))
         
@@ -335,7 +335,7 @@ class GatedDBoF():
               is_training=is_training,
               scope="cluster_bn")
         else:
-          cluster_biases = tf.get_variable("cluster_biases",
+          cluster_biases = tf.compat.v1.get_variable("cluster_biases",
             [cluster_size],
             initializer = tf.random_normal(stddev=1 / math.sqrt(feature_size)))
           tf.summary.histogram("cluster_biases", cluster_biases)
@@ -351,11 +351,11 @@ class GatedDBoF():
         activation_max = tf.nn.l2_normalize(activation_max,1)
 
 
-        dim_red = tf.get_variable("dim_red",
+        dim_red = tf.compat.v1.get_variable("dim_red",
           [cluster_size, feature_size],
           initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(feature_size)))
  
-        cluster_weights_2 = tf.get_variable("cluster_weights_2",
+        cluster_weights_2 = tf.compat.v1.get_variable("cluster_weights_2",
           [feature_size, cluster_size],
           initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(feature_size)))
         
@@ -372,7 +372,7 @@ class GatedDBoF():
               is_training=is_training,
               scope="cluster_bn_2")
         else:
-          cluster_biases = tf.get_variable("cluster_biases_2",
+          cluster_biases = tf.compat.v1.get_variable("cluster_biases_2",
             [cluster_size],
             initializer = tf.random_normal(stddev=1 / math.sqrt(feature_size)))
           tf.summary.histogram("cluster_biases_2", cluster_biases)
@@ -405,7 +405,7 @@ class SoftDBoF():
         is_training = self.is_training
         max_pool = self.max_pool
 
-        cluster_weights = tf.get_variable("cluster_weights",
+        cluster_weights = tf.compat.v1.get_variable("cluster_weights",
           [feature_size, cluster_size],
           initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(feature_size)))
         
@@ -420,7 +420,7 @@ class SoftDBoF():
               is_training=is_training,
               scope="cluster_bn")
         else:
-          cluster_biases = tf.get_variable("cluster_biases",
+          cluster_biases = tf.compat.v1.get_variable("cluster_biases",
             [cluster_size],
             initializer = tf.random_normal(stddev=1 / math.sqrt(feature_size)))
           tf.summary.histogram("cluster_biases", cluster_biases)
@@ -462,7 +462,7 @@ class DBoF():
         max_frames = self.max_frames
         is_training = self.is_training
 
-        cluster_weights = tf.get_variable("cluster_weights",
+        cluster_weights = tf.compat.v1.get_variable("cluster_weights",
           [feature_size, cluster_size],
           initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(feature_size)))
         
@@ -477,7 +477,7 @@ class DBoF():
               is_training=is_training,
               scope="cluster_bn")
         else:
-          cluster_biases = tf.get_variable("cluster_biases",
+          cluster_biases = tf.compat.v1.get_variable("cluster_biases",
             [cluster_size],
             initializer = tf.random_normal(stddev=1 / math.sqrt(feature_size)))
           tf.summary.histogram("cluster_biases", cluster_biases)
@@ -514,11 +514,11 @@ class NetFV():
         self.cluster_size = cluster_size
 
     def forward(self,reshaped_input):
-        cluster_weights = tf.get_variable("cluster_weights",
+        cluster_weights = tf.compat.v1.get_variable("cluster_weights",
           [self.feature_size, self.cluster_size],
           initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(self.feature_size)))
      
-        covar_weights = tf.get_variable("covar_weights",
+        covar_weights = tf.compat.v1.get_variable("covar_weights",
           [self.feature_size, self.cluster_size],
           initializer = tf.random_normal_initializer(mean=1.0, stddev=1 /math.sqrt(self.feature_size)))
       
@@ -536,7 +536,7 @@ class NetFV():
               is_training=self.is_training,
               scope="cluster_bn")
         else:
-          cluster_biases = tf.get_variable("cluster_biases",
+          cluster_biases = tf.compat.v1.get_variable("cluster_biases",
             [self.cluster_size],
             initializer = tf.random_normal(stddev=1 / math.sqrt(self.feature_size)))
           tf.summary.histogram("cluster_biases", cluster_biases)
@@ -550,7 +550,7 @@ class NetFV():
         a_sum = tf.reduce_sum(activation,-2,keep_dims=True)
 
         if not FLAGS.fv_couple_weights:
-            cluster_weights2 = tf.get_variable("cluster_weights2",
+            cluster_weights2 = tf.compat.v1.get_variable("cluster_weights2",
               [1,self.feature_size, self.cluster_size],
               initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(self.feature_size)))
         else:
@@ -673,7 +673,7 @@ class NetVLADModelLF(models.BaseModel):
     vlad = tf.concat([vlad_video, vlad_audio],1)
 
     vlad_dim = vlad.get_shape().as_list()[1] 
-    hidden1_weights = tf.get_variable("hidden1_weights",
+    hidden1_weights = tf.compat.v1.get_variable("hidden1_weights",
       [vlad_dim, hidden1_size],
       initializer=tf.random_normal_initializer(stddev=1 / math.sqrt(cluster_size)))
        
@@ -688,7 +688,7 @@ class NetVLADModelLF(models.BaseModel):
           scope="hidden1_bn")
 
     else:
-      hidden1_biases = tf.get_variable("hidden1_biases",
+      hidden1_biases = tf.compat.v1.get_variable("hidden1_biases",
         [hidden1_size],
         initializer = tf.random_normal_initializer(stddev=0.01))
       tf.summary.histogram("hidden1_biases", hidden1_biases)
@@ -699,7 +699,7 @@ class NetVLADModelLF(models.BaseModel):
    
 
     if gating:
-        gating_weights = tf.get_variable("gating_weights_2",
+        gating_weights = tf.compat.v1.get_variable("gating_weights_2",
           [hidden1_size, hidden1_size],
           initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(hidden1_size)))
         
@@ -719,7 +719,7 @@ class NetVLADModelLF(models.BaseModel):
               is_training=is_training,
               scope="gating_bn")
         else:
-          gating_biases = tf.get_variable("gating_biases",
+          gating_biases = tf.compat.v1.get_variable("gating_biases",
             [cluster_size],
             initializer = tf.random_normal(stddev=1 / math.sqrt(feature_size)))
           gates += gating_biases
@@ -817,7 +817,7 @@ class DbofModelLF(models.BaseModel):
 
     dbof_dim = dbof.get_shape().as_list()[1] 
 
-    hidden1_weights = tf.get_variable("hidden1_weights",
+    hidden1_weights = tf.compat.v1.get_variable("hidden1_weights",
       [dbof_dim, hidden1_size],
       initializer=tf.random_normal_initializer(stddev=1 / math.sqrt(cluster_size)))
     tf.summary.histogram("hidden1_weights", hidden1_weights)
@@ -831,7 +831,7 @@ class DbofModelLF(models.BaseModel):
           is_training=is_training,
           scope="hidden1_bn")
     else:
-      hidden1_biases = tf.get_variable("hidden1_biases",
+      hidden1_biases = tf.compat.v1.get_variable("hidden1_biases",
         [hidden1_size],
         initializer = tf.random_normal_initializer(stddev=0.01))
       tf.summary.histogram("hidden1_biases", hidden1_biases)
@@ -927,7 +927,7 @@ class GatedDbofModelLF(models.BaseModel):
     dbof_dim = dbof.get_shape().as_list()[1] 
 
     if fc_dimred:
-        hidden1_weights = tf.get_variable("hidden1_weights",
+        hidden1_weights = tf.compat.v1.get_variable("hidden1_weights",
           [dbof_dim, hidden1_size],
           initializer=tf.random_normal_initializer(stddev=1 / math.sqrt(cluster_size)))
         tf.summary.histogram("hidden1_weights", hidden1_weights)
@@ -941,7 +941,7 @@ class GatedDbofModelLF(models.BaseModel):
               is_training=is_training,
               scope="hidden1_bn")
         else:
-          hidden1_biases = tf.get_variable("hidden1_biases",
+          hidden1_biases = tf.compat.v1.get_variable("hidden1_biases",
             [hidden1_size],
             initializer = tf.random_normal_initializer(stddev=0.01))
           tf.summary.histogram("hidden1_biases", hidden1_biases)
@@ -1042,7 +1042,7 @@ class SoftDbofModelLF(models.BaseModel):
     dbof_dim = dbof.get_shape().as_list()[1] 
 
     if fc_dimred:
-        hidden1_weights = tf.get_variable("hidden1_weights",
+        hidden1_weights = tf.compat.v1.get_variable("hidden1_weights",
           [dbof_dim, hidden1_size],
           initializer=tf.random_normal_initializer(stddev=1 / math.sqrt(cluster_size)))
         tf.summary.histogram("hidden1_weights", hidden1_weights)
@@ -1056,7 +1056,7 @@ class SoftDbofModelLF(models.BaseModel):
               is_training=is_training,
               scope="hidden1_bn")
         else:
-          hidden1_biases = tf.get_variable("hidden1_biases",
+          hidden1_biases = tf.compat.v1.get_variable("hidden1_biases",
             [hidden1_size],
             initializer = tf.random_normal_initializer(stddev=0.01))
           tf.summary.histogram("hidden1_biases", hidden1_biases)
@@ -1254,7 +1254,7 @@ class NetFVModelLF(models.BaseModel):
     fv = tf.concat([fv_video, fv_audio],1)
 
     fv_dim = fv.get_shape().as_list()[1] 
-    hidden1_weights = tf.get_variable("hidden1_weights",
+    hidden1_weights = tf.compat.v1.get_variable("hidden1_weights",
       [fv_dim, hidden1_size],
       initializer=tf.random_normal_initializer(stddev=1 / math.sqrt(cluster_size)))
     
@@ -1268,7 +1268,7 @@ class NetFVModelLF(models.BaseModel):
           is_training=is_training,
           scope="hidden1_bn")
     else:
-      hidden1_biases = tf.get_variable("hidden1_biases",
+      hidden1_biases = tf.compat.v1.get_variable("hidden1_biases",
         [hidden1_size],
         initializer = tf.random_normal_initializer(stddev=0.01))
       tf.summary.histogram("hidden1_biases", hidden1_biases)
@@ -1278,7 +1278,7 @@ class NetFVModelLF(models.BaseModel):
       activation = tf.nn.relu6(activation)
 
     if gating:
-        gating_weights = tf.get_variable("gating_weights_2",
+        gating_weights = tf.compat.v1.get_variable("gating_weights_2",
           [hidden1_size, hidden1_size],
           initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(hidden1_size)))
         
@@ -1292,7 +1292,7 @@ class NetFVModelLF(models.BaseModel):
               is_training=is_training,
               scope="gating_bn")
         else:
-          gating_biases = tf.get_variable("gating_biases",
+          gating_biases = tf.compat.v1.get_variable("gating_biases",
             [cluster_size],
             initializer = tf.random_normal(stddev=1 / math.sqrt(feature_size)))
           gates += gating_biases
