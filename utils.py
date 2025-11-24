@@ -40,8 +40,8 @@ def Dequantize(feat_vector, max_quantized_value=2, min_quantized_value=-2):
 
 
 def MakeSummary(name, value):
-  """Creates a tf.Summary proto with the given name and value."""
-  summary = tf.Summary()
+  """Creates a tf.compat.v1.Summary proto with the given name and value."""
+  summary = tf.compat.v1.Summary()
   val = summary.value.add()
   val.tag = str(name)
   val.simple_value = float(value)
