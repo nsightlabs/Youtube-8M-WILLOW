@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Binary for training Tensorflow models on the YouTube-8M dataset."""
-
+import tensorflow as tf
+tf.compat.v1.disable_eager_execution()
 import json
 import os
 import time
