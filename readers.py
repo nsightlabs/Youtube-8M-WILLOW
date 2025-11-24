@@ -183,8 +183,11 @@ class YT8MFrameFeatureReader(BaseReader):
       feature_matrix: matrix of all frame-features
       num_frames: number of frames in the sequence
     """
+    # decoded_features = tf.reshape(
+    #     tf.cast(tf.decode_raw(features, tf.uint8), tf.float32),
+    #     [-1, feature_size])
     decoded_features = tf.reshape(
-        tf.cast(tf.decode_raw(features, tf.uint8), tf.float32),
+        tf.cast(tf.compat.v1decode_raw(features, tf.uint8), tf.float32),
         [-1, feature_size])
 
     num_frames = tf.minimum(tf.shape(decoded_features)[0], max_frames)
