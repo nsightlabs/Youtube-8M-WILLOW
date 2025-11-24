@@ -147,7 +147,7 @@ def inference(reader, train_dir, data_pattern, out_file_location, batch_size, to
       return init_op_list
 
     sess.run(set_up_init_ops(tf.compat.v1.get_collection_ref(
-        tf.GraphKeys.LOCAL_VARIABLES)))
+        tf.compat.v1.GraphKeys.LOCAL_VARIABLES)))
 
     coord = tf.train.Coordinator()
     threads = tf.compat.v1.train.start_queue_runners(sess=sess, coord=coord)
