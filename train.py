@@ -277,7 +277,7 @@ def build_graph(reader,
 
     # Adds update_ops (e.g., moving average updates in batch normalization) as
     # a dependency to the train_op.
-    update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
+    update_ops = tf.compat.v1.get_collection(tf.compat.v1.GraphKeys.UPDATE_OPS)
     if "update_ops" in result.keys():
       update_ops += result["update_ops"]
     if update_ops:
@@ -294,14 +294,14 @@ def build_graph(reader,
         global_step=global_step,
         clip_gradient_norm=clip_gradient_norm)
 
-    tf.add_to_collection("global_step", global_step)
-    tf.add_to_collection("loss", label_loss)
-    tf.add_to_collection("predictions", predictions)
-    tf.add_to_collection("input_batch_raw", model_input_raw)
-    tf.add_to_collection("input_batch", model_input)
-    tf.add_to_collection("num_frames", num_frames)
-    tf.add_to_collection("labels", tf.cast(labels_batch, tf.float32))
-    tf.add_to_collection("train_op", train_op)
+    tf.compat.v1.add_to_collection("global_step", global_step)
+    tf.compat.v1.add_to_collection("loss", label_loss)
+    tf.compat.v1.add_to_collection("predictions", predictions)
+    tf.compat.v1.add_to_collection("input_batch_raw", model_input_raw)
+    tf.compat.v1.add_to_collection("input_batch", model_input)
+    tf.compat.v1.add_to_collection("num_frames", num_frames)
+    tf.compat.v1.add_to_collection("labels", tf.cast(labels_batch, tf.float32))
+    tf.compat.v1.add_to_collection("train_op", train_op)
 
 
 class Trainer(object):
@@ -358,11 +358,11 @@ class Trainer(object):
         if not meta_filename:
           saver = self.build_model(self.model, self.reader)
 
-        global_step = tf.get_collection("global_step")[0]
-        loss = tf.get_collection("loss")[0]
-        predictions = tf.get_collection("predictions")[0]
-        labels = tf.get_collection("labels")[0]
-        train_op = tf.get_collection("train_op")[0]
+        global_step = tf.compat.v1.get_collection("global_step")[0]
+        loss = tf.compat.v1.get_collection("loss")[0]
+        predictions = tf.compat.v1.get_collection("predictions")[0]
+        labels = tf.compat.v1.get_collection("labels")[0]
+        train_op = tf.compat.v1.get_collection("train_op")[0]
         init_op = tf.global_variables_initializer()
 
     sv = tf.train.Supervisor(
