@@ -64,7 +64,8 @@ class ModelExporter(object):
 
     if self.frame_features:
 
-      serialized_examples = tf.placeholder(tf.string, shape=(None,))
+      # serialized_examples = tf.placeholder(tf.string, shape=(None,))
+      serialized_examples = tf.compat.v1.placeholder(tf.string, shape=(None,))
 
       fn = lambda x: self.build_prediction_graph(x)
       video_id_output, top_indices_output, top_predictions_output = (
@@ -73,7 +74,8 @@ class ModelExporter(object):
 
     else:
 
-      serialized_examples = tf.placeholder(tf.string, shape=(None,))
+      # serialized_examples = tf.placeholder(tf.string, shape=(None,))
+      serialized_examples = tf.compat.v1.placeholder(tf.string, shape=(None,))
 
       video_id_output, top_indices_output, top_predictions_output = (
           self.build_prediction_graph(serialized_examples))
