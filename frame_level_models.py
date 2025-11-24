@@ -226,7 +226,7 @@ class NetVLAD():
         a_sum = tf.reduce_sum(activation,-2,keepdims=True)
 
         cluster_weights2 = tf.compat.v1.get_variable("cluster_weights2",
-            [1,self.feature_size, self.cluster_size],
+            [1,int(self.feature_size), int(self.cluster_size)],
             initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(self.feature_size)))
         
         a = tf.multiply(a_sum,cluster_weights2)
@@ -554,7 +554,7 @@ class NetFV():
 
         if not FLAGS.fv_couple_weights:
             cluster_weights2 = tf.compat.v1.get_variable("cluster_weights2",
-              [1,self.feature_size, self.cluster_size],
+              [1,int(self.feature_size), int(self.cluster_size)],
               initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(self.feature_size)))
         else:
             cluster_weights2 = tf.scalar_mul(FLAGS.fv_coupling_factor,cluster_weights)
