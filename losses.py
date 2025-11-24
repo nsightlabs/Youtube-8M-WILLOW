@@ -15,7 +15,8 @@
 """Provides definitions for non-regularized training or test losses."""
 
 import tensorflow as tf
-from tensorflow import flags
+# from tensorflow import flags
+flags = tf.compat.v1.flags
 import scipy.io as sio
 import numpy as np
 
