@@ -167,7 +167,7 @@ class LightVLAD():
         
         activation = tf.nn.softmax(activation)
 
-        activation = tf.reshape(activation, [-1, self.max_frames, self.cluster_size])
+        activation = tf.reshape(activation, [-1, int(self.max_frames), int(self.cluster_size)])
        
         activation = tf.transpose(activation,perm=[0,2,1])
         
@@ -221,7 +221,7 @@ class NetVLAD():
         activation = tf.nn.softmax(activation)
         tf.summary.histogram("cluster_output", activation)
 
-        activation = tf.reshape(activation, [-1, self.max_frames, self.cluster_size])
+        activation = tf.reshape(activation, [-1, int(self.max_frames), int(self.cluster_size)])
 
         a_sum = tf.reduce_sum(activation,-2,keepdims=True)
 
@@ -278,7 +278,7 @@ class NetVLAGD():
         
         activation = tf.nn.softmax(activation)
 
-        activation = tf.reshape(activation, [-1, self.max_frames, self.cluster_size])
+        activation = tf.reshape(activation, [-1, int(self.max_frames), int(self.cluster_size)])
 
         gate_weights = tf.compat.v1.get_variable("gate_weights",
             [1, self.cluster_size,self.feature_size],
@@ -548,7 +548,7 @@ class NetFV():
         activation = tf.nn.softmax(activation)
         tf.summary.histogram("cluster_output", activation)
 
-        activation = tf.reshape(activation, [-1, self.max_frames, self.cluster_size])
+        activation = tf.reshape(activation, [-1, int(self.max_frames), int(self.cluster_size)])
 
         a_sum = tf.reduce_sum(activation,-2,keepdims=True)
 
