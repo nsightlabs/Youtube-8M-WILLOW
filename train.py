@@ -507,7 +507,7 @@ class Trainer(object):
   def recover_model(self, meta_filename):
     logging.info("%s: Restoring from meta graph file %s",
                  task_as_string(self.task), meta_filename)
-    return tf.train.import_meta_graph(meta_filename)
+    return tf.compat.v1.train.import_meta_graph(meta_filename)
 
   def build_model(self, model, reader):
     """Find the model and build the graph."""
@@ -528,7 +528,7 @@ class Trainer(object):
                  batch_size=FLAGS.batch_size,
                  num_epochs=FLAGS.num_epochs)
   
-    return tf.train.Saver(max_to_keep=0, keep_checkpoint_every_n_hours=5)
+    return tf.compat.v1.train.Saver(max_to_keep=0, keep_checkpoint_every_n_hours=5)
 
 
 def get_reader():
