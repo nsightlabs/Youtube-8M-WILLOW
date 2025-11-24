@@ -363,9 +363,9 @@ class Trainer(object):
         predictions = tf.compat.v1.get_collection("predictions")[0]
         labels = tf.compat.v1.get_collection("labels")[0]
         train_op = tf.compat.v1.get_collection("train_op")[0]
-        init_op = tf.global_variables_initializer()
+        init_op = tf.compat.v1.global_variables_initializer()
 
-    sv = tf.train.Supervisor(
+    sv = tf.compat.v1.train.Supervisor(
         graph,
         logdir=self.train_dir,
         init_op=init_op,
