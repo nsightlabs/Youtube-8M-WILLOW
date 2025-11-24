@@ -110,7 +110,8 @@ class ModelExporter(object):
         tf.summary.histogram(variable.op.name, variable)
 
       predictions = result["predictions"]
-
+      logging = tf.compat.v1.logging
+      logging.info(f"predictions: {predictions}\n_TOP_PREDICTIONS_IN_OUTPUT:{_TOP_PREDICTIONS_IN_OUTPUT}")
       top_predictions, top_indices = tf.nn.top_k(predictions, 
           _TOP_PREDICTIONS_IN_OUTPUT)
     return video_id, top_indices, top_predictions
