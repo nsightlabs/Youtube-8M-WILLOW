@@ -268,7 +268,7 @@ def build_graph(reader,
     else:
       reg_loss = tf.constant(0.0)
     
-    reg_losses = tf.losses.get_regularization_losses()
+    reg_losses = tf.compat.v1.losses.get_regularization_losses()
     if reg_losses:
       reg_loss += tf.add_n(reg_losses)
     
