@@ -21,8 +21,11 @@ import video_level_models
 import tensorflow as tf
 import model_utils as utils
 
-import tensorflow.contrib.slim as slim
-from tensorflow import flags
+# import tensorflow.contrib.slim as slim
+# from tensorflow import flags
+
+import tf_slim as slim
+flags = tf.compat.v1.flags
 
 import scipy.io as sio
 import numpy as np
