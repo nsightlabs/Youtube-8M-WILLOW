@@ -664,10 +664,10 @@ class NetVLADModelLF(models.BaseModel):
           is_training=is_training,
           scope="input_bn")
 
-    with tf.variable_scope("video_VLAD"):
+    with tf.compat.v1.variable_scope("video_VLAD"):
         vlad_video = video_NetVLAD.forward(reshaped_input[:,0:1024]) 
 
-    with tf.variable_scope("audio_VLAD"):
+    with tf.compat.v1.variable_scope("audio_VLAD"):
         vlad_audio = audio_NetVLAD.forward(reshaped_input[:,1024:])
 
     vlad = tf.concat([vlad_video, vlad_audio],1)
@@ -807,10 +807,10 @@ class DbofModelLF(models.BaseModel):
           is_training=is_training,
           scope="input_bn")
 
-    with tf.variable_scope("video_DBOF"):
+    with tf.compat.v1.variable_scope("video_DBOF"):
         dbof_video = video_Dbof.forward(reshaped_input[:,0:1024]) 
 
-    with tf.variable_scope("audio_DBOF"):
+    with tf.compat.v1.variable_scope("audio_DBOF"):
         dbof_audio = audio_Dbof.forward(reshaped_input[:,1024:])
 
     dbof = tf.concat([dbof_video, dbof_audio],1)
@@ -916,10 +916,10 @@ class GatedDbofModelLF(models.BaseModel):
           is_training=is_training,
           scope="input_bn")
 
-    with tf.variable_scope("video_DBOF"):
+    with tf.compat.v1.variable_scope("video_DBOF"):
         dbof_video = video_Dbof.forward(reshaped_input[:,0:1024]) 
 
-    with tf.variable_scope("audio_DBOF"):
+    with tf.compat.v1.variable_scope("audio_DBOF"):
         dbof_audio = audio_Dbof.forward(reshaped_input[:,1024:])
 
     dbof = tf.concat([dbof_video, dbof_audio],1)
@@ -1031,10 +1031,10 @@ class SoftDbofModelLF(models.BaseModel):
           is_training=is_training,
           scope="input_bn")
 
-    with tf.variable_scope("video_DBOF"):
+    with tf.compat.v1.variable_scope("video_DBOF"):
         dbof_video = video_Dbof.forward(reshaped_input[:,0:1024]) 
 
-    with tf.variable_scope("audio_DBOF"):
+    with tf.compat.v1.variable_scope("audio_DBOF"):
         dbof_audio = audio_Dbof.forward(reshaped_input[:,1024:])
 
     dbof = tf.concat([dbof_video, dbof_audio],1)
@@ -1116,7 +1116,7 @@ class LstmModel(models.BaseModel):
                 ], state_is_tuple=False)
 
     loss = 0.0
-    with tf.variable_scope("RNN"):
+    with tf.compat.v1.variable_scope("RNN"):
       outputs, state = tf.nn.dynamic_rnn(stacked_lstm, model_input,
                                          sequence_length=num_frames,
                                          dtype=tf.float32)
@@ -1169,7 +1169,7 @@ class GruModel(models.BaseModel):
                 ], state_is_tuple=False)
 
     loss = 0.0
-    with tf.variable_scope("RNN"):
+    with tf.compat.v1.variable_scope("RNN"):
       outputs, state = tf.nn.dynamic_rnn(stacked_GRU, model_input,
                                          sequence_length=num_frames,
                                          dtype=tf.float32)
@@ -1245,10 +1245,10 @@ class NetFVModelLF(models.BaseModel):
           is_training=is_training,
           scope="input_bn")
 
-    with tf.variable_scope("video_FV"):
+    with tf.compat.v1.variable_scope("video_FV"):
         fv_video = video_NetFV.forward(reshaped_input[:,0:1024]) 
 
-    with tf.variable_scope("audio_FV"):
+    with tf.compat.v1.variable_scope("audio_FV"):
         fv_audio = audio_NetFV.forward(reshaped_input[:,1024:])
 
     fv = tf.concat([fv_video, fv_audio],1)
