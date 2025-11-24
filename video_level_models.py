@@ -127,12 +127,12 @@ class MoeModel(models.BaseModel):
 
     if gating_probabilities:
         if gating_input == 'prob':
-            gating_weights = tf.get_variable("gating_prob_weights",
+            gating_weights = tf.compat.v1.get_variable("gating_prob_weights",
               [vocab_size, vocab_size],
               initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(vocab_size)))
             gates = tf.matmul(probabilities, gating_weights)
         else:
-            gating_weights = tf.get_variable("gating_prob_weights",
+            gating_weights = tf.compat.v1.get_variable("gating_prob_weights",
               [input_size, vocab_size],
               initializer = tf.random_normal_initializer(stddev=1 / math.sqrt(vocab_size)))
  
