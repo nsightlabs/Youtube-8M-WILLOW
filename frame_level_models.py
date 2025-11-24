@@ -177,7 +177,7 @@ class LightVLAD():
         vlad = tf.transpose(vlad,perm=[0,2,1])
         vlad = tf.nn.l2_normalize(vlad,1)
 
-        vlad = tf.reshape(vlad,[-1,self.cluster_size*self.feature_size])
+        vlad = tf.reshape(vlad,[-1, int(self.cluster_size)*int(self.feature_size)])
         vlad = tf.nn.l2_normalize(vlad,1)
 
         return vlad
@@ -241,7 +241,7 @@ class NetVLAD():
 
         vlad = tf.nn.l2_normalize(vlad,1)
 
-        vlad = tf.reshape(vlad,[-1,self.cluster_size*self.feature_size])
+        vlad = tf.reshape(vlad,[-1, int(self.cluster_size)*int(self.feature_size)])
         vlad = tf.nn.l2_normalize(vlad,1)
 
         return vlad
@@ -297,7 +297,7 @@ class NetVLAGD():
         
         vlagd = tf.nn.l2_normalize(vlagd,1)
 
-        vlagd = tf.reshape(vlagd,[-1,self.cluster_size*self.feature_size])
+        vlagd = tf.reshape(vlagd,[-1, int(self.cluster_size)*int(self.feature_size)])
         vlagd = tf.nn.l2_normalize(vlagd,1)
 
         return vlagd
@@ -580,17 +580,17 @@ class NetFV():
         fv2 = tf.divide(fv2,tf.square(covar_weights))
         fv2 = tf.subtract(fv2,a_sum)
 
-        fv2 = tf.reshape(fv2,[-1,self.cluster_size*self.feature_size])
+        fv2 = tf.reshape(fv2,[-1, int(self.cluster_size)*int(self.feature_size)])
       
         fv2 = tf.nn.l2_normalize(fv2,1)
-        fv2 = tf.reshape(fv2,[-1,self.cluster_size*self.feature_size])
+        fv2 = tf.reshape(fv2,[-1, int(self.cluster_size)*int(self.feature_size)])
         fv2 = tf.nn.l2_normalize(fv2,1)
 
         fv1 = tf.subtract(fv1,a)
         fv1 = tf.divide(fv1,covar_weights) 
 
         fv1 = tf.nn.l2_normalize(fv1,1)
-        fv1 = tf.reshape(fv1,[-1,self.cluster_size*self.feature_size])
+        fv1 = tf.reshape(fv1,[-1, int(self.cluster_size)*int(self.feature_size)])
         fv1 = tf.nn.l2_normalize(fv1,1)
 
         return tf.concat([fv1,fv2],1)
