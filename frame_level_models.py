@@ -1126,7 +1126,7 @@ class LstmModel(models.BaseModel):
       for _ in range(number_of_layers)
     ]
     stacked_lstm = tf.keras.layers.StackedRNNCells(cells)
-    stacked_lstm = tf.keras.layers.RNN(stacked_lstm, return_sequences=True)
+    # stacked_lstm = tf.keras.layers.RNN(stacked_lstm, return_sequences=True)
 
 
     loss = 0.0
