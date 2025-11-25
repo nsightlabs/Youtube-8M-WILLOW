@@ -1111,16 +1111,27 @@ class LstmModel(models.BaseModel):
     if backward:
       model_input = tf.reverse_sequence(model_input, num_frames, seq_axis=1) 
  
-    stacked_lstm = tf.contrib.rnn.MultiRNNCell(
-            [
-                tf.contrib.rnn.BasicLSTMCell(
-                    lstm_size, forget_bias=1.0, state_is_tuple=False)
-                for _ in range(number_of_layers)
-                ], state_is_tuple=False)
+    # stacked_lstm = tf.contrib.rnn.MultiRNNCell(
+    #         [
+    #             tf.contrib.rnn.BasicLSTMCell(
+    #                 lstm_size, forget_bias=1.0, state_is_tuple=False)
+    #             for _ in range(number_of_layers)
+    #             ], state_is_tuple=False)
+    
+    cells = [
+      tf.keras.layers.LSTMCell(
+          lstm_size,
+          bias_initializer=tf.keras.initializers.Constant(1.0) 
+      )
+      for _ in range(number_of_layers)
+    ]
+    stacked_lstm = tf.keras.layers.StackedRNNCells(cells)
+    stacked_lstm = tf.keras.layers.RNN(stacked_lstm, return_sequences=True)
+
 
     loss = 0.0
     with tf.compat.v1.variable_scope("RNN"):
-      outputs, state = tf.nn.dynamic_rnn(stacked_lstm, model_input,
+      outputs, state = tf.compat.v1.nn.dynamic_rnn(stacked_lstm, model_input,
                                          sequence_length=num_frames,
                                          dtype=tf.float32)
 
