@@ -1118,7 +1118,7 @@ class LstmModel(models.BaseModel):
     #             for _ in range(number_of_layers)
     #             ], state_is_tuple=False)
     
-    stacked_lstm = tf.compat.v1.nn.rnn_cell.MultiRNNCelll(
+    stacked_lstm = tf.compat.v1.nn.rnn_cell.MultiRNNCell(
             [
                 tf.compat.v1.nn.rnn_cell.LSTMCell(
                     lstm_size, forget_bias=1.0, state_is_tuple=False)
